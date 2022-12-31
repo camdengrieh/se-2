@@ -21,3 +21,14 @@ h4 {
 p {
   margin: 1rem 0;
 }
+
+/* Faucet Indicator Style  */
+
+.faucet-indicator {
+  position: fixed;
+  background: hsl(var(--b3));
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

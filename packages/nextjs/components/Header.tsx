@@ -90,6 +90,10 @@ export default function Header() {
         <RainbowKitCustomConnectButton />
         <Faucet />
       </div>
+      <div className="tooltip tooltip-right">
+        <div className="tooltip-arrow"></div>
+        <div className="tooltip-content">Grab funds from faucet</div>
+      </div>
     </div>
   );
 }
