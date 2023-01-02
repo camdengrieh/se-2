@@ -17,6 +17,7 @@ const isENS = (address = "") => address.endsWith(".eth") || address.endsWith(".x
  */
 const AddressInput = ({ value, name, placeholder, onChange }: TAddressInputProps) => {
   const [address, setAddress] = useState("");
+  const [resolvedEns, setResolvedEns] = useState("");
 
   const isControlledInput = value !== undefined;
 
@@ -28,6 +29,7 @@ const AddressInput = ({ value, name, placeholder, onChange }: TAddressInputProps
   });
 
   const onChangeAddress = async (event: ChangeEvent<HTMLInputElement>) => {
+    setResolvedEns("");
     setAddress(event.target.value);
     if (onChange) {
       onChange(event.target.value);
@@ -38,16 +40,20 @@ const AddressInput = ({ value, name, placeholder, onChange }: TAddressInputProps
     if (!ensData) return;
 
     // ENS resolved successfully
+    setResolvedEns(address);
     setAddress(ensData);
     if (onChange) {
       onChange(ensData);
     }
+    // We don't want to run it on address change
+    // eslint-disable-next-line
   }, [ensData, onChange]);
 
   return (
     <>
       <div className="form-control grow">
         <label className="input-group">
+          {resolvedEns && <span className="text-accent">{resolvedEns}</span>}
           <input
             name={name}
             type="text"
@@ -60,7 +66,7 @@ const AddressInput = ({ value, name, placeholder, onChange }: TAddressInputProps
             disabled={isLoading}
           />
           <span className="p-0 rounded-md bg-base-100">
-            <Blockies seed={address?.toLowerCase() as string} size={6.5} scale={5} />
+            <Blockies seed={address?.toLowerCase() as string} size={7} scale={5} />
           </span>
         </label>
       </div>
